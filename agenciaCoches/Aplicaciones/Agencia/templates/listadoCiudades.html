@@ -1,0 +1,41 @@
+{% extends "./plantilla.html"%}
+{% block body %}
+<div class="card">
+    <div class="card-title text-center">
+        <h3><b>Listado de Ciudades</b></h3>
+    </div>
+</div>
+<br>
+<div class="text-end">
+    <a href="{% url 'nuevoCiudad' %}" class="btn btn-success">Agregar Ciudad</a>
+</div>
+<br>
+<table class="table table-bordered table-striped table-hover" id="tbl-ciudades">
+    <thead>
+        <tr>
+            <th>ID</th>
+            <th>NOMBRE</th>
+            <th>OPCIONES</th>
+        </tr>
+    </thead>
+    <tbody>
+       {% for ciudadTemporal in ciudads %}
+            <tr>
+                <td>{{ciudadTemporal.id}}</td>
+                <td>{{ciudadTemporal.nombre}}</td>
+                <td>
+                    <a href="{% url 'editarCiudad' ciudadTemporal.id %}" class="btn btn-warning">Editar</a>
+                    <a href="{% url 'eliminarCiudad' ciudadTemporal.id %}" class="btn btn-danger" onclick="return confirm('Estas seguro de eliminar la Ciudad de forma permanente? ')">Eliminar</a>
+                </td>
+            </tr>
+        {% endfor %}
+    </tbody>
+</table>
+
+<script>
+    let table = new DataTable('#tbl-ciudades');
+</script>
+{% endblock %}
+
+
+

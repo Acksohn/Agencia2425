@@ -1,0 +1,72 @@
+{% extends "./plantilla.html"%}
+{% block body %}
+<h1 class="text-center">Registrar Nuevo Propietario </h1>
+<br>
+<div class="container-fluid">
+    <div class="row">
+        <div class="col-md-4"></div>
+        <div class="col-md-4">
+            <form action="{% url 'guardarPropietario' %}" method="post" enctype="multipart/form-data" id="frm_nuevo_propietario">
+                {% csrf_token %}
+                <label for=""><b>Nombre:</b></label>
+                <input type="text" name="nombre" id="nombre" placeholder="Ingrese el nombre del propietario" class="form-control">
+                <br>
+                <label for=""><b>Apellido:</b></label>
+                <input type="text" name="apellido" id="apellido" placeholder="Ingrese el apellido del propietario" class="form-control">
+                <br>
+                <label for=""><b>Telefono:</b></label>
+                <input type="text" name="telefono" id="telefono" placeholder="Ingrese el telefono del propietario" class="form-control">
+                <br>
+                <label for=""><b>Email:</b></label>
+                <input type="email" name="email" id="email" placeholder="Ingrese el email del propietario" class="form-control">
+                <br>
+                <label for=""><b>Ciudad:</b></label>
+                <select name="ciudad" id="ciudad" class="form-control">
+                    {% for ciudad in ciudads %}
+                    <option value="{{ciudad.id}}">{{ ciudad.nombre }}</option>
+                    {% endfor %}
+                </select>
+                <br>
+                <center>
+                    <button type="submit" class="btn btn-primary" onclick="return confirm('Estas seguro de guardar el Propietario? ')">Guardar</button>
+                    &nbsp; &nbsp; &nbsp;
+                    <a href="{% url 'listadoPropietarios'%}" class="btn btn-danger">Cancelar</a>
+                </center>
+                
+            </form>
+    </div>
+</div>
+<script>
+    $("#frm_nuevo_propietario").validate({
+        rules: {
+            nombre: {
+                required: true
+            },
+            apellido: {
+                required: true
+            },
+            email: {
+                required: true
+            },
+            telefono: {
+                required: true
+            }
+        },
+        messages: {
+            nombre: {
+                required: "Llene el campo nombre"
+            },
+            apellido: {
+                required: "Llene el campo apellido"
+            },
+            email: {
+                required: "Llene el campo email"
+            },
+            telefono: {
+                required: "Llene el campo telefono"
+            }
+        }
+    });
+    
+</script>
+{% endblock %}
