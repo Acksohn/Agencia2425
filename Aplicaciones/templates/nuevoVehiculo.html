@@ -1,0 +1,71 @@
+{% extends "./plantilla.html"%}
+{% block body %}
+<h1 class="text-center">Registrar Nuevo Vehiculo </h1>
+<br>
+<div class="container-fluid">
+    <div class="row">
+        <div class="col-md-4"></div>
+        <div class="col-md-4">
+            <form action="{% url 'guardarVehiculo' %}" method="post" enctype="multipart/form-data" id="frm_nuevo_vehiculo">
+                {% csrf_token %}
+                <label for=""><b>Fabricación:</b></label>
+                <input type="text" name="fabricacion" id="fabricacion" placeholder="Ingrese la fabricacion del vehiculo" class="form-control">
+                <br>
+                <label for=""><b>Precio:</b></label>
+                <input type="text" name="precio" id="precio" placeholder="Ingrese el precio del vehiculo" class="form-control">
+                <br>
+                <label for=""><b>Placa:</b></label>
+                <input type="text" name="placa" id="placa" placeholder="Ingrese la placa del vehiculo" class="form-control">
+                <br>
+                <label for=""><b>Modelo:</b></label>
+                <select name="modelo" id="modelo" class="form-control">
+                    {% for modelo in modelos %}
+                    <option value="{{modelo.id}}">{{ modelo.nombre }}</option>
+                    {% endfor %}
+                </select>
+                <br>
+                <label for=""><b>Propietario:</b></label>
+                <select name="propietario" id="propietario" class="form-control">
+                    {% for propietario in propietarios %}
+                    <option value="{{propietario.id}}">{{ propietario.nombre }}</option>
+                    {% endfor %}
+                </select>
+                <br>
+                <center>
+                    <button type="submit" class="btn btn-primary" onclick="return confirm('Estas seguro de guardar el Vehiculo? ')">Guardar</button>
+                    &nbsp; &nbsp; &nbsp;
+                    <a href="{% url 'listadoVehiculos'%}" class="btn btn-danger">Cancelar</a>
+                </center>
+
+            </form>
+    </div>
+</div>
+<script>
+    $("#frm_nuevo_vehiculo").validate({
+        rules: {
+            fabricacion: {
+                required: true
+            },
+            precio: {
+                required: true
+            },
+            placa: {
+                required: true
+            }
+
+        },
+        messages: {
+            fabricacion: {
+                required: "Llene el campo fabricacion"
+            },
+            precio: {
+                required: "Llene el campo precio"
+            },
+            placa: {
+                required: "Llene el campo placa"
+            }
+        }
+    });
+
+</script>
+{% endblock %}

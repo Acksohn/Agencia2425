@@ -1,0 +1,72 @@
+{% extends "./plantilla.html"%}
+{% block body %}
+<h1 class="text-center">Registrar Nuevo Vehiculo </h1>
+<br>
+<div class="container-fluid">
+    <div class="row">
+        <div class="col-md-4"></div>
+        <div class="col-md-4">
+            <form action="{% url 'ActualizacionVehiculo' %}" method="post" enctype="multipart/form-data" id="frm_nuevo_vehiculo">
+                {% csrf_token %}
+                <input type="hidden" name="id" id="id" value="{{vehiculoEditar.id}}">
+                <label for=""><b> Año de Fabricación:</b></label>
+                <input type="number" name="fabricacion" id="fabricacion" value="{{vehiculoEditar.fabricacion}}" class="form-control">
+                <br>
+                <label for=""><b>Precio:</b></label>
+                <input type="number" name="precio" id="precio" value="{{vehiculoEditar.precio}}" class="form-control">
+                <br>
+                <label for=""><b>Placa:</b></label>
+                <input type="text" name="placa" id="placa" value="{{vehiculoEditar.placa}}" class="form-control">
+                <br>
+                <label for=""><b>Modelo:</b></label>
+                <select name="modelo" id="modelo" class="form-control">
+                    {% for modelo in modelos %}
+                    <option value="{{modelo.id}}">{{ modelo.nombre }}</option>
+                    {% endfor %}
+                </select>
+                <br>
+                <label for=""><b>Propietario:</b></label>
+                <select name="propietario" id="propietario" class="form-control">
+                    {% for propietario in propietarios %}
+                    <option value="{{propietario.id}}">{{ propietario.nombre }}</option>
+                    {% endfor %}
+                </select>
+                <br>
+                <center>
+                    <button type="submit" class="btn btn-primary" onclick="return confirm('Estas seguro de Actualizar datos del Vehiculo? ')">Actualizar</button>
+                    &nbsp; &nbsp; &nbsp;
+                    <a href="{% url 'listadoVehiculos'%}" class="btn btn-danger">Cancelar</a>
+                </center>
+
+            </form>
+    </div>
+</div>
+<script>
+    $("#frm_nuevo_vehiculo").validate({
+        rules: {
+            fabricacion: {
+                required: true
+            },
+            precio: {
+                required: true
+            },
+            placa: {
+                required: true
+            }
+
+        },
+        messages: {
+            fabricacion: {
+                required: "Llene el campo fabricacion"
+            },
+            precio: {
+                required: "Llene el campo precio"
+            },
+            placa: {
+                required: "Llene el campo placa"
+            }
+        }
+    });
+
+</script>
+{% endblock %}

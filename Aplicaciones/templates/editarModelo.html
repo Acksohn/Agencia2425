@@ -1,0 +1,39 @@
+{% extends "./plantilla.html"%}
+{% block body %}
+<h1 class="text-center">Registrar Nuevo Modelo</h1>
+<br>
+<div class="container-fluid">
+    <div class="row">
+        <div class="col-md-4"></div>
+        <div class="col-md-4">
+            <form action="{% url 'ActualizacionModelo' %}" method="post" enctype="multipart/form-data" id="frm_nuevo_modelo">
+                {% csrf_token %}
+                <input type="hidden" name="id" id="id" value="{{modeloEditar.id}}">
+                <label for=""><b>Nombre:</b></label>
+                <input type="text" name="nombre" id="nombre" value="{{modeloEditar.nombre}}" class="form-control">
+                <br>
+                <center>
+                    <button type="submit" class="btn btn-primary" onclick="return confirm('Estas seguro de actualizar los datos  del Modelo? ')">Actualizar</button>
+                    &nbsp; &nbsp; &nbsp;
+                    <a href="{% url 'listadoModelos'%}" class="btn btn-danger">Cancelar</a>
+                </center>
+
+            </form>
+    </div>
+</div>
+<script>
+    $("#frm_nuevo_modelo").validate({
+        rules: {
+            nombre: {
+                required: true
+            }
+        },
+        messages: {
+            nombre: {
+                required: "Llene el campo nombre"
+            }
+        }
+    });
+
+</script>
+{% endblock %}

@@ -1,0 +1,41 @@
+{% extends "./plantilla.html"%}
+{% block body %}
+<div class="card">
+    <div class="card-title text-center">
+        <h3><b>Listado de Modelos</b></h3>
+    </div>
+</div>
+<br>
+<div class="text-end">
+    <a href="{% url 'nuevoModelo' %}" class="btn btn-success">Agregar Modelo</a>
+</div>
+<br>
+<table class="table table-bordered table-striped table-hover" id="tbl-modelos">
+    <thead>
+        <tr>
+            <th>ID</th>
+            <th>NOMBRE</th>
+            <th>OPCIONES</th>
+        </tr>
+    </thead>
+    <tbody>
+       {% for modeloTemporal in modelos %}
+            <tr>
+                <td>{{modeloTemporal.id}}</td>
+                <td>{{modeloTemporal.nombre}}</td>
+                <td>
+                    <a href="{% url 'editarModelo' modeloTemporal.id %}" class="btn btn-warning">Editar</a>
+                    <a href="{% url 'eliminarModelo' modeloTemporal.id %}" class="btn btn-danger" onclick="return confirm('Estas seguro de eliminar el Modelo de forma permanente? ')">Eliminar</a>
+                </td>
+            </tr>
+        {% endfor %}
+    </tbody>
+</table>
+
+<script>
+    let table = new DataTable('#tbl-modelos');
+</script>
+{% endblock %}
+
+
+
